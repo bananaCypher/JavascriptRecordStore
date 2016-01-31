@@ -63,4 +63,9 @@ describe('Record Store', function(){
         assert.equal(recordStore.inventory[0].artist, 'Queen');
         assert.equal(recordStore.balance, 102000);
     });
+    it("can report on financial status", function(){
+        var recordStore = createDummyStore();
+        var returnString = "The store currently has a balance of: £1000.00\nThe store has records worth a total of: £70.50";
+        assert.equal(recordStore.financialReport(), returnString);
+    });
 });
