@@ -26,4 +26,12 @@ describe('Record Store', function(){
         var recordStore = new RecordStore('Vinyl Villians', 'Edinburgh');
         assert.equal(recordStore.city, 'Edinburgh');
     });
+    it('should have an inventory with multiple records', function(){
+        var record1 = new Record('Pink Floyd', 'Dark Side of the Moon', 2000);
+        var record2 = new Record('Queen', 'News of the World', 2500);
+        var record3 = new Record('Dio', 'Holy Diver', 2550);
+        var recordStore = new RecordStore('Vinyl Villians', 'Edinburgh');
+        recordStore.addRecords(record1, record2, record3);
+        assert.equal(recordStore.inventory.length, 3);
+    });
 });
