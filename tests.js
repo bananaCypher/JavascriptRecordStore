@@ -11,6 +11,16 @@ function createDummyStore() {
     recordStore.addRecords(record1, record2, record3);
     return recordStore;
 }
+function createDummyCollector() {
+    var record1 = new Record('Pink Floyd', 'The Wall', 2000);
+    var record2 = new Record('The Beatles', 'Abbey Road', 2500);
+    var record3 = new Record('Iron Maiden', 'The Number of the Beast', 2550);
+    var recordCollector = new RecordCollector(10000);
+    recordCollector.collection.push(record1);
+    recordCollector.collection.push(record2);
+    recordCollector.collection.push(record3);
+    return recordCollector;
+}
 
 describe('Record', function(){
     it('should have an artist', function(){
@@ -60,7 +70,8 @@ describe('Record Store', function(){
     });
     it("can sell a record", function(){
         var recordStore = createDummyStore();
-        recordStore.sellRecord(recordStore.inventory[0]);
+        var recordCollector = createDummyCollector();
+        recordStore.sellRecord(recordCollector, recordStore.inventory[0]);
         assert.equal(recordStore.inventory[0].artist, 'Queen');
         assert.equal(recordStore.balance, 102000);
     });
@@ -72,5 +83,46 @@ describe('Record Store', function(){
     it("can work out the total price of the inventory", function(){
         var recordStore = createDummyStore();
         assert.equal(recordStore.inventoryTotalPrice(), 7050);
+    });
+    it("can buy records from collectors", function(){
+        var recordCollector = createDummyCollector();
+        var recordStore = createDummyStore();
+        var record = new Record('Pink Floyd', 'The Wall', 2000);
+        recordStore.buyRecord(recordCollector, record);
+        assert.equal(recordStore.balance, 102000);
+        assert.equal(recordStore.collection.length, 4);
+    });
+});
+
+describe("Record Colllector", function(){
+    it("should have a balance", function(){
+        var recordCollector = createDummyCollector();
+        assert.equal(recordCollector.balance, 10000);
+    });
+    it("should have a collection of records", function(){
+        var recordCollector = createDummyCollector();
+        assert.equal(recordCollector.collection.length, 3); 
+    });
+    it("should be able to buy records", function(){
+        var recordCollector = createDummyCollector();
+        var recordStore = createDummyStore();
+        var record = new Record('Pink Floyd', 'Dark Side of the Moon', 2000);
+        recordCollector.buyRecord(recordStore, record);
+        assert.equal(recordCollector.balance, 8000);
+        assert.equal(recordCollector.collection.length, 4);
+    });
+    it("should be able to sell records", function(){
+        var recordCollector = createDummyCollector();
+        var recordStore = createDummyStore();
+        var record = new Record('Pink Floyd', 'The Wall', 2000);
+        recordCollector.sellRecord(recordStore, record);
+        assert.equal(recordCollector.balance, 12000);
+        assert.equal(recordCollector.collection.length, 2);
+    });
+    it("shouldn't be able to buy records it doesn't have money for", function(){
+        
+    });
+    it("shouldn't be able to sell records it doesn't have", function(){
+
     });
 });
