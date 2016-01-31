@@ -34,4 +34,8 @@ describe('Record Store', function(){
         recordStore.addRecords(record1, record2, record3);
         assert.equal(recordStore.inventory.length, 3);
     });
+    it('has a balance in cash', function(){
+        var recordStore = new RecordStore('Vinyl Villians', 'Edinburgh', 100000);
+        assert.equal(recordStore.balance, 100000);
+    });
 });
