@@ -68,4 +68,8 @@ describe('Record Store', function(){
         var returnString = "The store currently has a balance of: £1000.00\nThe store has records worth a total of: £70.50";
         assert.equal(recordStore.financialReport(), returnString);
     });
+    it("can work out the total price of the inventory", function(){
+        var recordStore = createDummyStore();
+        assert.equal(recordStore.inventoryTotalPrice(), 7050);
+    });
 });

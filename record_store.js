@@ -27,6 +27,18 @@ RecordStore.prototype = {
         this.inventory.splice(recordIndex, 1);
         this.balance += record.price;
     },
+    financialReport: function(){
+        var report = "The store currently has a balance of: " + this.penceToPounds(this.balance) + "\n";
+        report = report + "The store has records worth a total of: " + this.penceToPounds(this.inventoryTotalPrice());
+        return report;
+    },
+    inventoryTotalPrice: function(){
+        var sum = 0;
+        for (record of this.inventory) {
+            sum += record.price;
+        }
+        return sum;
+    }
 }
 
 module.exports = RecordStore;
