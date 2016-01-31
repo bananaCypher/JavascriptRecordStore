@@ -12,7 +12,7 @@ RecordStore.prototype = {
     },
     listInventory: function(){
         listString = '';
-        for (record of this.inventory) {
+        for (record of this.inventory){
             listString = listString + record.title + ' by ';
             listString = listString + record.artist + ' - '
             listString = listString + this.penceToPounds(record.price) + '\n';
@@ -21,7 +21,12 @@ RecordStore.prototype = {
     },
     penceToPounds:  function(pence){
        return '£' + (pence / 100).toFixed(2);
-    }
+    },
+    sellRecord: function(record){
+        var recordIndex = this.inventory.indexOf(record);    
+        this.inventory.splice(recordIndex, 1);
+        this.balance += record.price;
+    },
 }
 
 module.exports = RecordStore;

@@ -61,6 +61,6 @@ describe('Record Store', function(){
         var recordStore = createDummyStore();
         recordStore.sellRecord(recordStore.inventory[0]);
         assert.equal(recordStore.inventory[0].artist, 'Queen');
-        assert.equal(recordStore.balance, 100200);
+        assert.equal(recordStore.balance, 102000);
     });
 });
