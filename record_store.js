@@ -22,10 +22,22 @@ RecordStore.prototype = {
     penceToPounds:  function(pence){
        return '£' + (pence / 100).toFixed(2);
     },
-    sellRecord: function(record){
-        var recordIndex = this.inventory.indexOf(record);    
+    sellRecord: function(collector, record){
+        //var recordIndex = this.inventory.indexOf(record);    
+        var recordIndex = this.indexOf(this.inventory, record);
+        if (recordIndex === -1) {
+            throw new Error("The record store doesn't have this record to sell");
+        }
+        collector.buyRecord(record);
         this.inventory.splice(recordIndex, 1);
         this.balance += record.price;
+    },
+    buyRecord: function(record) {
+        if (record.price > this.balance) {
+            throw new Error("The record store doesn't have enough money to purchase this record");
+        }
+        this.inventory.push(record);
+        this.balance -= record.price; 
     },
     financialReport: function(){
         var report = "The store currently has a balance of: " + this.penceToPounds(this.balance) + "\n";
@@ -38,6 +50,23 @@ RecordStore.prototype = {
             sum += record.price;
         }
         return sum;
+    },
+    indexOf: function(array, object){
+        arrayLoop:
+        for (var i=0; i<array.length; i++) {
+            for (property in object) {
+                if (object[property] != array[i][property]) {
+                    continue arrayLoop;
+                }
+            }
+            for (property in array[i]) {
+                if (object[property] != array[i][property]) {
+                    continue arrayLoop;
+                }
+            }
+            return i;
+        }
+        return -1;
     }
 }
 
