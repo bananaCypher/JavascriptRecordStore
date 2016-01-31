@@ -2,6 +2,15 @@ var assert = require('assert');
 var Record = require('./record');
 var RecordStore = require('./record_store');
 
+function createDummyStore() {
+    var record1 = new Record('Pink Floyd', 'Dark Side of the Moon', 2000);
+    var record2 = new Record('Queen', 'News of the World', 2500);
+    var record3 = new Record('Dio', 'Holy Diver', 2550);
+    var recordStore = new RecordStore('Vinyl Villians', 'Edinburgh', 100000);
+    recordStore.addRecords(record1, record2, record3);
+    return recordStore;
+}
+
 describe('Record', function(){
     it('should have an artist', function(){
         var record = new Record('Pink Floyd', 'Dark Side of the Moon', 2000);
@@ -37,5 +46,10 @@ describe('Record Store', function(){
     it('has a balance in cash', function(){
         var recordStore = new RecordStore('Vinyl Villians', 'Edinburgh', 100000);
         assert.equal(recordStore.balance, 100000);
+    });
+    it("can list it's inventory", function(){
+        var recordStore = createDummyStore();
+        var returnString = "Dark Side of the Moon by Pink Floyd - £20.00\nNews of the World by Queen - £25.00\nHoly Diver by Dio - £25.50\n"
+        assert.equal(recordStore.listInventory(), returnString);
     });
 });
