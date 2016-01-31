@@ -52,4 +52,9 @@ describe('Record Store', function(){
         var returnString = "Dark Side of the Moon by Pink Floyd - £20.00\nNews of the World by Queen - £25.00\nHoly Diver by Dio - £25.50\n"
         assert.equal(recordStore.listInventory(), returnString);
     });
+    it("can properly convert pence to pounds", function(){
+        var recordStore = createDummyStore();
+        assert.equal(recordStore.penceToPounds(1231), '£12.31');
+        assert.equal(recordStore.penceToPounds(1000), '£10.00');
+    });
 });
