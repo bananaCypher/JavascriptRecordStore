@@ -57,4 +57,10 @@ describe('Record Store', function(){
         assert.equal(recordStore.penceToPounds(1231), '£12.31');
         assert.equal(recordStore.penceToPounds(1000), '£10.00');
     });
+    it("can sell a record", function(){
+        var recordStore = createDummyStore();
+        recordStore.sellRecord(recordStore.inventory[0]);
+        assert.equal(recordStore.inventory[0].artist, 'Queen');
+        assert.equal(recordStore.balance, 100200);
+    });
 });
