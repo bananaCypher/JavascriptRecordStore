@@ -1,6 +1,7 @@
 var assert = require('assert');
 var Record = require('./record');
 var RecordStore = require('./record_store');
+var RecordCollector = require('./record_collector');
 
 function createDummyStore() {
     var record1 = new Record('Pink Floyd', 'Dark Side of the Moon', 2000);
